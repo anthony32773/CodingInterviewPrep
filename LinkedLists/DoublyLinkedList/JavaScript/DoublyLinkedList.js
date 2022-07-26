@@ -1,15 +1,15 @@
 /**
- * Class definition for a node in a singly linked list
+ * Class definition for a node in a doubly linked list
  */
 class Node {
   next = null;
+  prev = null;
   constructor(value) {
     this.value = value;
   }
 
   /**
    * String representation of a node
-   * Time complexity: O(1)
    *
    * @returns {void}
    */
@@ -17,93 +17,17 @@ class Node {
     console.log(
       `Value: ${this.value}\nNext: ${
         this.next === null ? "null" : this.next.value
-      }`
+      }\nPrevious: ${this.prev === null ? "null" : this.prev.value}`
     );
   }
 }
 
 /**
- * Class definition for a Singly Linked List
+ * Class definition for a Doubly Linked List
  */
-class SinglyLinkedList {
+class DoublyLinkedList {
   head = null;
-
-  /**
-   * Insert a node at the front of the list
-   * Time complexity: O(1)
-   *
-   * @param {number} value - Value for the node to be created
-   * @returns {void}
-   */
-  insertAtFront(value) {
-    let newNode = new Node(value);
-    if (this.head === null) {
-      this.head = newNode;
-    } else {
-      newNode.next = this.head;
-      this.head = newNode;
-    }
-  }
-
-  /**
-   * Insert a node at the back of the list
-   * Time complexity: O(N)
-   *
-   * @param {number} value - Value for the node to be created
-   * @returns {void}
-   */
-  insertAtBack(value) {
-    let newNode = new Node(value);
-    if (this.head === null) {
-      this.head = newNode;
-    } else {
-      let tempPtr = this.head;
-      while (tempPtr.next !== null) {
-        tempPtr = tempPtr.next;
-      }
-      tempPtr.next = newNode;
-    }
-  }
-
-  /**
-   * Remove the first element from the list and returns it
-   * Time complexity: O(1)
-   *
-   * @returns {Node | null}
-   */
-  popFront() {
-    if (this.head === null) {
-      console.log("List is empty!");
-      return null;
-    } else {
-      const frontValue = this.head;
-      this.head = this.head.next;
-      return frontValue;
-    }
-  }
-
-  /**
-   * Remove the last element from the list and returns it
-   * Time complexity: O(N)
-   *
-   * @returns {Node | null}
-   */
-  popBack() {
-    if (this.head === null) {
-      console.log("List is empty!");
-      return null;
-    } else {
-      let tempPtr = this.head.next;
-      let prevPtr = this.head;
-      while (tempPtr.next !== null) {
-        prevPtr = tempPtr;
-        tempPtr = tempPtr.next;
-      }
-      const lastValue = tempPtr;
-      prevPtr.next = null;
-      return lastValue;
-    }
-  }
+  tail = null;
 
   /**
    * String representation of the list. Print each node in order in the list
@@ -113,7 +37,7 @@ class SinglyLinkedList {
    */
   toString() {
     if (this.head === null) {
-      console.log("List is empty!");
+      console.log("The list is empty!");
     } else {
       let tempPtr = this.head;
       while (tempPtr !== null) {
@@ -121,6 +45,140 @@ class SinglyLinkedList {
         tempPtr = tempPtr.next;
       }
     }
+  }
+
+  /**
+   * Inserts a new node at the front of the list
+   * Time complexity: O(1)
+   *
+   * @param {number} value - Value for the new node to be inserted into the list
+   * @returns {void}
+   */
+  insertAtFront(value) {
+    const newNode = new Node(value);
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.head.prev = newNode;
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+  }
+
+  /**
+   * Inserts a new node at the back of the list
+   * Time complexity: O(1)
+   *
+   * @param {number} value - Value for the new node to be inserted into the list
+   * @returns {void}
+   */
+  insertAtBack(value) {
+    const newNode = new Node(value);
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.prev = this.tail;
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+  }
+
+  /**
+   * Removes the first element from the list and returns it
+   * Time complexity: O(1)
+   *
+   * @returns {Node | null}
+   */
+  popFront() {
+    if (this.head === null) {
+      console.log("The list is empty!");
+      return null;
+    }
+    const tempPtr = this.head;
+    this.head = this.head.next;
+    this.head.prev = null;
+    return tempPtr;
+  }
+
+  /**
+   * Removes the last element from the list and returns it
+   * Time complexity: O(1)
+   *
+   * @returns {Node | null}
+   */
+  popBack() {
+    if (this.head === null) {
+      console.log("The list is empty!");
+      return null;
+    }
+    const tempPtr = this.tail;
+    this.tail = this.tail.prev;
+    this.tail.next = null;
+    return tempPtr;
+  }
+
+  /**
+   * Add a new node after another node in the list. If added return true
+   * Time complexity: O(N)
+   *
+   * @param {number} newValue - Value for the new node
+   * @param {number} valueInList - Value for the node to insert after in the list
+   * @returns {boolean} - If node was successfully added to the list
+   */
+  addAfterValue(newValue, valueInList) {
+    if (this.head === null) {
+      console.log("The list is empty!");
+      return false;
+    }
+    let tempPtr = this.head;
+    while (tempPtr !== null) {
+      if (tempPtr.value === valueInList) {
+        const newNode = new Node(newValue);
+        newNode.next = tempPtr.next;
+        newNode.prev = tempPtr;
+        tempPtr.next = newNode;
+        if (newNode.next === null) {
+          this.tail = newNode;
+        }
+        return true;
+      }
+      tempPtr = tempPtr.next;
+    }
+    return false;
+  }
+
+  /**
+   * Insert a new node before a specific node in the list
+   * Time complexity: O(N)
+   *
+   * @param {number} newValue - Value for the new node to be added to the list
+   * @param {number} valueInList - Value to of the node to insert the new node before
+   * @returns {boolean} - If insertion successful, return true, else return false
+   */
+  addBeforeValue(newValue, valueInList) {
+    if (this.head === null) {
+      console.log("The list is empty!");
+      return false;
+    }
+    let tempPtr = this.head;
+    while (tempPtr !== null) {
+      if (tempPtr.value === valueInList) {
+        const newNode = new Node(newValue);
+        newNode.next = tempPtr;
+        newNode.prev = tempPtr.prev;
+        if (newNode.prev === null) {
+          this.head = newNode;
+        } else {
+          tempPtr.prev.next = newNode;
+        }
+        tempPtr.prev = newNode;
+        return true;
+      }
+      tempPtr = tempPtr.next;
+    }
+    return false;
   }
 
   /**
@@ -145,78 +203,18 @@ class SinglyLinkedList {
       return false;
     }
   }
-
-  /**
-   * Add a new node after another node in the list. If added return true
-   * Time complexity: O(N)
-   *
-   * @param {number} newValue - Value for the new node
-   * @param {number} valueInList - Value for the node to insert after in the list
-   * @returns {boolean} - If node was successfully added to the list
-   */
-  addAfterValue(newValue, valueInList) {
-    if (this.head === null) {
-      console.log("The list is empty!");
-      return false;
-    }
-
-    let tempPtr = this.head;
-    while (tempPtr !== null) {
-      if (tempPtr.value === valueInList) {
-        const newNode = new Node(newValue);
-        newNode.next = tempPtr.next;
-        tempPtr.next = newNode;
-        return true;
-      }
-      tempPtr = tempPtr.next;
-    }
-    return false;
-  }
-
-  /**
-   * Insert a new node before a specific node in the list
-   * Time complexity: O(N)
-   *
-   * @param {number} newValue - Value for the new node to be added to the list
-   * @param {number} valueInList - Value to of the node to insert the new node before
-   * @returns {boolean} - If insertion successful, return true, else return false
-   */
-  addBeforeValue(newValue, valueInList) {
-    if (this.head === null) {
-      console.log("The list is empty!");
-      return false;
-    }
-    let tempPtr = this.head;
-    let prev = null;
-    while (tempPtr !== null) {
-      if (tempPtr.value === valueInList) {
-        const newNode = new Node(newValue);
-        newNode.next = tempPtr;
-
-        if (prev === null) {
-          this.head = newNode;
-        } else {
-          prev.next = newNode;
-        }
-        return true;
-      }
-      prev = tempPtr;
-      tempPtr = tempPtr.next;
-    }
-    return false;
-  }
 }
 
-const MyLinkedList = new SinglyLinkedList();
+const MyLinkedList = new DoublyLinkedList();
 MyLinkedList.insertAtFront(1);
 MyLinkedList.insertAtFront(2);
 MyLinkedList.insertAtFront(3);
 MyLinkedList.insertAtFront(4);
-MyLinkedList.addBeforeValue(20, 4);
-MyLinkedList.addAfterValue(8, 2);
-MyLinkedList.addBeforeValue(10, 3);
-console.log(MyLinkedList.find(4));
+MyLinkedList.insertAtBack(10);
+MyLinkedList.addBeforeValue(8, 3);
+MyLinkedList.addAfterValue(45, 2);
+MyLinkedList.addAfterValue(100, 10);
 MyLinkedList.popBack();
 MyLinkedList.popFront();
-MyLinkedList.insertAtBack(45);
+console.log(MyLinkedList.find(45));
 MyLinkedList.toString();
