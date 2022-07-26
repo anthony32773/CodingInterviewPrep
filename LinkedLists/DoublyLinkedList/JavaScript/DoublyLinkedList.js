@@ -192,6 +192,8 @@ class DoublyLinkedList {
     if (this.head === null) {
       console.log("List is empty!");
       return false;
+    } else if (this.tail.value === value) {
+      return true;
     } else {
       let tempPtr = this.head;
       while (tempPtr.next !== null) {
