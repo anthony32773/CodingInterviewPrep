@@ -32,7 +32,7 @@ class Queue {
   /**
    * Checks if the queue is empty
    * Time complexity: O(1)
-   * 
+   *
    * @returns {boolean}
    */
   isEmpty() {
