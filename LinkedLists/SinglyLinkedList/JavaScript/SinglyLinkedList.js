@@ -186,21 +186,20 @@ class SinglyLinkedList {
       console.log("The list is empty!");
       return false;
     }
-    let tempPtr = this.#head;
-    let prev = null;
-    while (tempPtr !== null) {
-      if (tempPtr.value === valueInList) {
+    if (this.#head.value === valueInList) {
         const newNode = new Node(newValue);
-        newNode.next = tempPtr;
-
-        if (prev === null) {
-          this.#head = newNode;
-        } else {
-          prev.next = newNode;
-        }
+        newNode.next = this.#head;
+        this.#head = newNode;
+        return true;
+    }
+    let tempPtr = this.#head;
+    while (tempPtr.next !== null) {
+      if (tempPtr.next.value === valueInList) {
+        const newNode = new Node(newValue);
+        newNode.next = tempPtr.next;
+        tempPtr.next = newNode;
         return true;
       }
-      prev = tempPtr;
       tempPtr = tempPtr.next;
     }
     return false;
@@ -215,6 +214,7 @@ MyLinkedList.insertAtFront(4);
 MyLinkedList.addBeforeValue(20, 4);
 MyLinkedList.addAfterValue(8, 2);
 MyLinkedList.addBeforeValue(10, 3);
+MyLinkedList.addBeforeValue(25, 4);
 console.log(MyLinkedList.find(4));
 MyLinkedList.popBack();
 MyLinkedList.popFront();
