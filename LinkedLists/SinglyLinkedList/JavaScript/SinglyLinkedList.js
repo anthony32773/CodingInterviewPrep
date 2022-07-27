@@ -26,7 +26,7 @@ class Node {
  * Class definition for a Singly Linked List
  */
 class SinglyLinkedList {
-  head = null;
+  #head = null;
 
   /**
    * Insert a node at the front of the list
@@ -37,11 +37,11 @@ class SinglyLinkedList {
    */
   insertAtFront(value) {
     let newNode = new Node(value);
-    if (this.head === null) {
-      this.head = newNode;
+    if (this.#head === null) {
+      this.#head = newNode;
     } else {
-      newNode.next = this.head;
-      this.head = newNode;
+      newNode.next = this.#head;
+      this.#head = newNode;
     }
   }
 
@@ -54,10 +54,10 @@ class SinglyLinkedList {
    */
   insertAtBack(value) {
     let newNode = new Node(value);
-    if (this.head === null) {
-      this.head = newNode;
+    if (this.#head === null) {
+      this.#head = newNode;
     } else {
-      let tempPtr = this.head;
+      let tempPtr = this.#head;
       while (tempPtr.next !== null) {
         tempPtr = tempPtr.next;
       }
@@ -72,12 +72,12 @@ class SinglyLinkedList {
    * @returns {Node | null}
    */
   popFront() {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("List is empty!");
       return null;
     } else {
-      const frontValue = this.head;
-      this.head = this.head.next;
+      const frontValue = this.#head;
+      this.#head = this.#head.next;
       return frontValue;
     }
   }
@@ -89,12 +89,12 @@ class SinglyLinkedList {
    * @returns {Node | null}
    */
   popBack() {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("List is empty!");
       return null;
     } else {
-      let tempPtr = this.head.next;
-      let prevPtr = this.head;
+      let tempPtr = this.#head.next;
+      let prevPtr = this.#head;
       while (tempPtr.next !== null) {
         prevPtr = tempPtr;
         tempPtr = tempPtr.next;
@@ -112,10 +112,10 @@ class SinglyLinkedList {
    * @returns {void}
    */
   toString() {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("List is empty!");
     } else {
-      let tempPtr = this.head;
+      let tempPtr = this.#head;
       while (tempPtr !== null) {
         tempPtr.toString();
         tempPtr = tempPtr.next;
@@ -131,11 +131,11 @@ class SinglyLinkedList {
    * @returns {boolean}
    */
   find(value) {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("List is empty!");
       return false;
     } else {
-      let tempPtr = this.head;
+      let tempPtr = this.#head;
       while (tempPtr.next !== null) {
         if (tempPtr.value === value) {
           return true;
@@ -155,12 +155,12 @@ class SinglyLinkedList {
    * @returns {boolean} - If node was successfully added to the list
    */
   addAfterValue(newValue, valueInList) {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("The list is empty!");
       return false;
     }
 
-    let tempPtr = this.head;
+    let tempPtr = this.#head;
     while (tempPtr !== null) {
       if (tempPtr.value === valueInList) {
         const newNode = new Node(newValue);
@@ -182,11 +182,11 @@ class SinglyLinkedList {
    * @returns {boolean} - If insertion successful, return true, else return false
    */
   addBeforeValue(newValue, valueInList) {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("The list is empty!");
       return false;
     }
-    let tempPtr = this.head;
+    let tempPtr = this.#head;
     let prev = null;
     while (tempPtr !== null) {
       if (tempPtr.value === valueInList) {
@@ -194,7 +194,7 @@ class SinglyLinkedList {
         newNode.next = tempPtr;
 
         if (prev === null) {
-          this.head = newNode;
+          this.#head = newNode;
         } else {
           prev.next = newNode;
         }

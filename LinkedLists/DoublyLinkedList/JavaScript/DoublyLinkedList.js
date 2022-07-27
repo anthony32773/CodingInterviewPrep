@@ -26,8 +26,8 @@ class Node {
  * Class definition for a Doubly Linked List
  */
 class DoublyLinkedList {
-  head = null;
-  tail = null;
+  #head = null;
+  #tail = null;
 
   /**
    * String representation of the list. Print each node in order in the list
@@ -36,10 +36,10 @@ class DoublyLinkedList {
    * @returns {void}
    */
   toString() {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("The list is empty!");
     } else {
-      let tempPtr = this.head;
+      let tempPtr = this.#head;
       while (tempPtr !== null) {
         tempPtr.toString();
         tempPtr = tempPtr.next;
@@ -56,13 +56,13 @@ class DoublyLinkedList {
    */
   insertAtFront(value) {
     const newNode = new Node(value);
-    if (this.head === null) {
-      this.head = newNode;
-      this.tail = newNode;
+    if (this.#head === null) {
+      this.#head = newNode;
+      this.#tail = newNode;
     } else {
-      this.head.prev = newNode;
-      newNode.next = this.head;
-      this.head = newNode;
+      this.#head.prev = newNode;
+      newNode.next = this.#head;
+      this.#head = newNode;
     }
   }
 
@@ -75,13 +75,13 @@ class DoublyLinkedList {
    */
   insertAtBack(value) {
     const newNode = new Node(value);
-    if (this.head === null) {
-      this.head = newNode;
-      this.tail = newNode;
+    if (this.#head === null) {
+      this.#head = newNode;
+      this.#tail = newNode;
     } else {
-      newNode.prev = this.tail;
-      this.tail.next = newNode;
-      this.tail = newNode;
+      newNode.prev = this.#tail;
+      this.#tail.next = newNode;
+      this.#tail = newNode;
     }
   }
 
@@ -92,13 +92,13 @@ class DoublyLinkedList {
    * @returns {Node | null}
    */
   popFront() {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("The list is empty!");
       return null;
     }
-    const tempPtr = this.head;
-    this.head = this.head.next;
-    this.head.prev = null;
+    const tempPtr = this.#head;
+    this.#head = this.#head.next;
+    this.#head.prev = null;
     return tempPtr;
   }
 
@@ -109,13 +109,13 @@ class DoublyLinkedList {
    * @returns {Node | null}
    */
   popBack() {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("The list is empty!");
       return null;
     }
-    const tempPtr = this.tail;
-    this.tail = this.tail.prev;
-    this.tail.next = null;
+    const tempPtr = this.#tail;
+    this.#tail = this.#tail.prev;
+    this.#tail.next = null;
     return tempPtr;
   }
 
@@ -128,11 +128,11 @@ class DoublyLinkedList {
    * @returns {boolean} - If node was successfully added to the list
    */
   addAfterValue(newValue, valueInList) {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("The list is empty!");
       return false;
     }
-    let tempPtr = this.head;
+    let tempPtr = this.#head;
     while (tempPtr !== null) {
       if (tempPtr.value === valueInList) {
         const newNode = new Node(newValue);
@@ -140,7 +140,7 @@ class DoublyLinkedList {
         newNode.prev = tempPtr;
         tempPtr.next = newNode;
         if (newNode.next === null) {
-          this.tail = newNode;
+          this.#tail = newNode;
         }
         return true;
       }
@@ -158,18 +158,18 @@ class DoublyLinkedList {
    * @returns {boolean} - If insertion successful, return true, else return false
    */
   addBeforeValue(newValue, valueInList) {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("The list is empty!");
       return false;
     }
-    let tempPtr = this.head;
+    let tempPtr = this.#head;
     while (tempPtr !== null) {
       if (tempPtr.value === valueInList) {
         const newNode = new Node(newValue);
         newNode.next = tempPtr;
         newNode.prev = tempPtr.prev;
         if (newNode.prev === null) {
-          this.head = newNode;
+          this.#head = newNode;
         } else {
           tempPtr.prev.next = newNode;
         }
@@ -189,13 +189,13 @@ class DoublyLinkedList {
    * @returns {boolean}
    */
   find(value) {
-    if (this.head === null) {
+    if (this.#head === null) {
       console.log("List is empty!");
       return false;
-    } else if (this.tail.value === value) {
+    } else if (this.#tail.value === value) {
       return true;
     } else {
-      let tempPtr = this.head;
+      let tempPtr = this.#head;
       while (tempPtr.next !== null) {
         if (tempPtr.value === value) {
           return true;

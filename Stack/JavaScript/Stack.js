@@ -2,7 +2,7 @@
  * Class definition for a stack data structure. Last In First Out (LIFO)
  */
 class Stack {
-  stack = [];
+  #stack = [];
 
   /**
    * Return the top element in the stack and remove it.
@@ -14,7 +14,7 @@ class Stack {
       console.log("The stack is empty");
       return null;
     } else {
-      return this.stack.pop();
+      return this.#stack.pop();
     }
   }
 
@@ -24,7 +24,7 @@ class Stack {
    * @returns {boolean}
    */
   isEmpty() {
-    return this.stack.length === 0;
+    return this.#stack.length === 0;
   }
 
   /**
@@ -33,7 +33,7 @@ class Stack {
    * @returns {void}
    */
   push(value) {
-    this.stack.push(value);
+    this.#stack.push(value);
   }
 
   /**
@@ -46,7 +46,7 @@ class Stack {
       console.log("The stack is empty!");
       return null;
     }
-    return this.stack[this.stack.length - 1];
+    return this.#stack[this.#stack.length - 1];
   }
 
   /**
@@ -58,8 +58,8 @@ class Stack {
     if (this.isEmpty()) {
       console.log("The stack is empty!");
     } else {
-      for (let i = this.stack.length - 1; i >= 0; i--) {
-        console.log(this.stack[i]);
+      for (let i = this.#stack.length - 1; i >= 0; i--) {
+        console.log(this.#stack[i]);
       }
     }
   }
