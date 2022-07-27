@@ -187,10 +187,10 @@ class SinglyLinkedList {
       return false;
     }
     if (this.#head.value === valueInList) {
-        const newNode = new Node(newValue);
-        newNode.next = this.#head;
-        this.#head = newNode;
-        return true;
+      const newNode = new Node(newValue);
+      newNode.next = this.#head;
+      this.#head = newNode;
+      return true;
     }
     let tempPtr = this.#head;
     while (tempPtr.next !== null) {
