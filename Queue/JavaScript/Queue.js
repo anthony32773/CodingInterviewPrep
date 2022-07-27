@@ -6,6 +6,7 @@ class Queue {
 
   /**
    * Add a number to the queue
+   * Time complexity: O(1)
    *
    * @param {number} value - Number to add to the queue
    * @returns {void}
@@ -16,6 +17,7 @@ class Queue {
 
   /**
    * Remove a number from the queue
+   * Time complexity: O(N)
    *
    * @returns {number | null}
    */
@@ -24,13 +26,13 @@ class Queue {
       console.log("The queue is empty!");
       return null;
     }
-    // this.#queue.shift();
-    // const test = this.#queue.shift();
     return this.#queue.shift();
   }
 
   /**
    * Checks if the queue is empty
+   * Time complexity: O(1)
+   * 
    * @returns {boolean}
    */
   isEmpty() {
@@ -39,6 +41,7 @@ class Queue {
 
   /**
    * Get the number at the front of the queue
+   * Time complexity: O(1)
    *
    * @returns {number | null}
    */
@@ -52,6 +55,7 @@ class Queue {
 
   /**
    * A string representation of the queue
+   * Time complexity: O(N)
    *
    * @returns {void}
    */
