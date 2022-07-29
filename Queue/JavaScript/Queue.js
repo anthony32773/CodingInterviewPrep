@@ -70,11 +70,4 @@ class Queue {
   }
 }
 
-const MyQueue = new Queue();
-MyQueue.enqueue(1);
-MyQueue.enqueue(2);
-MyQueue.enqueue(3);
-MyQueue.enqueue(4);
-console.log(MyQueue.dequeue());
-console.log(MyQueue.peek());
-MyQueue.toString();
+module.exports = Queue;
