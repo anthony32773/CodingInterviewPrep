@@ -143,6 +143,55 @@ class HashTable {
     }
   }
 
+  deleteValue(key) {
+    let initialHash = this.#hashFunction(key);
+    if (this.#collisionMethod === "chaining") {
+      for (let i = 0; i < this.#table[initialHash].length; i++) {
+        if (this.#table[initialHash][i][0] === key) {
+          return delete this.#table[initialHash][i];
+        }
+      }
+      return null;
+    } else if (this.#collisionMethod === "linear probing") {
+      if (this.#table[initialHash][0] === key) {
+        return delete this.#table[initialHash];
+      }
+      let offset = 1;
+      while (true) {
+        const newIndex = (initialHash + offset) % this.#size;
+        if (this.#table[newIndex][0] === key) {
+          return delete this.#table[newIndex];
+        }
+      }
+    } else if (this.#collisionMethod === "quadratic probing") {
+      if (this.#table[initialHash][0] === key) {
+        return delete this.#table[initialHash];
+      }
+      let offset = 1;
+      const c1 = 13;
+      const c2 = 17;
+      while (true) {
+        const newIndex = (initialHash + c1 + offset * offset * c2) % this.#size;
+        if (this.#table[newIndex][0] === key) {
+          return delete this.#table[newIndex];
+        }
+      }
+    } else {
+      if (this.#table[initialHash][0] === key) {
+        return delete this.#table[initialHash];
+      }
+      let offset = 1;
+      while (true) {
+        const newIndex =
+          (initialHash + offset * this.#secondHashFunction(key)) % this.#size;
+        if (this.#table[newIndex][0] === key) {
+          return delete this.#table[newIndex];
+        }
+        offset++;
+      }
+    }
+  }
+
   toString() {
     console.log(this.#table);
   }
