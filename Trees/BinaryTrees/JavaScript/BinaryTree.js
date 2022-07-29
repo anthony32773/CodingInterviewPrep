@@ -55,6 +55,8 @@ class BinaryTree {
   /**
    * Traverse and print the tree using level order traversal
    * Print each level of the tree
+   * 
+   * @returns {void}
    */
   levelOrderTraversal() {
     if (this.#root === null) {
@@ -75,6 +77,12 @@ class BinaryTree {
     }
   }
 
+  /**
+   * Print out the tree using in order traversal
+   * 
+   * @param {Node} tempNode
+   * @returns {void} 
+   */
   inOrderTraversal(tempNode = this.#root) {
     if (tempNode !== null) {
         this.inOrderTraversal(tempNode.left);
@@ -83,6 +91,12 @@ class BinaryTree {
     }
   }
 
+  /**
+   * Print out the tree using pre order traversal
+   * 
+   * @param {Node} tempNode
+   * @returns {void}
+   */
   preOrderTraversal(tempNode = this.#root) {
     if (tempNode !== null) {
         console.log(tempNode.data);
@@ -91,6 +105,12 @@ class BinaryTree {
     }
   }
 
+  /**
+   * Print out the tree using post order traversal
+   * 
+   * @param {Node} tempNode
+   * @returns {void}
+   */
   postOrderTraversal(tempNode = this.#root) {
     if (tempNode !== null) {
         this.postOrderTraversal(tempNode.left);
